@@ -51,9 +51,10 @@ active_player = Player(player_name, room['outside'])
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
 
-current_location = active_player.current_room
-print(f'{active_player.name}, You are in the {active_player.current_room.name}\n', current_location.description)
-
+def player_location():
+    global current_location
+    current_location = active_player.current_room
+    print(f'{active_player.name}, You are in the {active_player.current_room.name}\n', current_location.description)
 
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
@@ -62,102 +63,84 @@ print(f'{active_player.name}, You are in the {active_player.current_room.name}\n
 
 while True:
 
+    player_location()
     user_input = input("Where would you like to go? n, e, s, w, or q to quit.")
 
     # North
     if user_input == 'n':
         print(f'Onward north!\n')
 
-        if current_location.name == 'Outside Cave Entrance':
+        if current_location == room['outside']:
             active_player = Player(player_name, room['outside'].n_to)
-            current_location = active_player.current_room
-            print(f'{active_player.name}, You are now in the {active_player.current_room.name}\n', current_location.description)
 
-        elif current_location.name == 'Foyer':
-            active_player = Player(player_name, room['overlook'])
-            current_location = active_player.current_room
-            print(f'{active_player.name}, You are now in the {active_player.current_room.name}\n', current_location.description)
+        elif current_location == room['foyer']:
+            active_player = Player(player_name, room['foyer'].n_to)
 
-        elif current_location.name == 'Grand Overlook':
+        elif current_location == room['overlook']:
             print(f'{active_player.name}, there is no path this way!\n')
 
-        elif current_location.name == 'Narrow Passage':
-            active_player = Player(player_name, room['treasure'])
-            current_location = active_player.current_room
-            print(f'{active_player.name}, You are now in the {active_player.current_room.name}\n', current_location.description)
+        elif current_location == room['narrow']:
+            active_player = Player(player_name, room['narrow'].n_to)
 
-        elif current_location.name == 'Treasure Chamber':
+        elif current_location == room['treasure']:
             print(f'{active_player.name}, there is no path this way!\n')
     
     # South
     elif user_input == 's':
         print('Onward south!')
 
-        if current_location.name == 'Outside Cave Entrance':
+        if current_location == room['outside']:
             print(f'{active_player.name}, there is no path this way!\n')
 
-        elif current_location.name == 'Foyer':
-            active_player = Player(player_name, room['outside'])
-            current_location = active_player.current_room
-            print(f'{active_player.name}, You are back in the {active_player.current_room.name}\n', current_location.description) 
+        elif current_location == room['foyer']:
+            active_player = Player(player_name, room['foyer'].s_to)
 
-        elif current_location.name == 'Grand Overlook':
-            active_player = Player(player_name, room['foyer'])
-            current_location = active_player.current_room
-            print(f'{active_player.name}, You are back in the {active_player.current_room.name}\n', current_location.description)
+        elif current_location == room['overlook']:
+            active_player = Player(player_name, room['overlook'].s_to)
 
-        elif current_location.name == 'Narrow Passage':
+        elif current_location == room['narrow']:
             print(f'{active_player.name}, there is no path this way!\n')
 
-        elif current_location.name == 'Treasure Chamber':
-            active_player = Player(player_name, room['narrow'])
-            current_location = active_player.current_room
-            print(f'{active_player.name}, You are now in the {active_player.current_room.name}\n', current_location.description)
+        elif current_location == room['treasure']:
+            active_player = Player(player_name, room['treasure'].s_to)
 
-    # East
+    # # East
     elif user_input == 'e':
         print('Onward east!')
 
-        if current_location.name == 'Outside Cave Entrance':
+        if current_location == room['outside']:
             print(f'{active_player.name}, there is no path this way!\n')
 
-        elif current_location.name == 'Foyer':
-            active_player = Player(player_name, room['narrow'])
-            current_location = active_player.current_room
-            print(f'{active_player.name}, You are now in the {active_player.current_room.name}\n', current_location.description)
+        elif current_location == room['foyer']:
+            active_player = Player(player_name, room['foyer'].e_to)
         
-        elif current_location.name == 'Grand Overlook':
+        elif current_location == room['overlook']:
             print(f'{active_player.name}, there is no path this way!\n')
 
-        elif current_location.name == 'Narrow Passage':
+        elif current_location == room['narrow']:
             print(f'{active_player.name}, there is no path this way!\n')
 
-        elif current_location.name == 'Treasure Chamber':
+        elif current_location == room['treasure']:
             print(f'{active_player.name}, there is no path this way!\n')
 
-    # West    
+    # # West    
     elif user_input == 'w':
         print('Onward west!') 
 
-        if current_location.name == 'Outside Cave Entrance':
+        if current_location == room['outside']:
             print(f'{active_player.name}, there is no path this way!\n')
         
-        elif current_location.name == 'Foyer':
+        elif current_location == room['foyer']:
             print(f'{active_player.name}, there is no path this way!\n')
 
-        elif current_location.name == 'Grand Overlook':
+        elif current_location == room['overlook']:
             print(f'{active_player.name}, there is no path this way!\n')
 
-        elif current_location.name == 'Narrow Passage':
-            active_player = Player(player_name, room['foyer'])
-            current_location = active_player.current_room
-            print(f'{active_player.name}, You are back in the {active_player.current_room.name}\n', current_location.description)
+        elif current_location == room['narrow']:
+            active_player = Player(player_name, room['narrow'].w_to)
 
-        elif current_location.name == 'Treasure Chamber':
+        elif current_location == room['treasure']:
             print(f'{active_player.name}, there is no path this way!\n')
 
     elif user_input == 'q':
         exit()
-        
-
-
