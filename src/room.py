@@ -9,4 +9,4 @@ class Room:
 
 
     def __str__ (self):
-        return f'{self.name}: {self.description}'
+        return f"{self.name}: {self.description}. You've come across a {self.items}"
