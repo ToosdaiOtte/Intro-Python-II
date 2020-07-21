@@ -57,7 +57,7 @@ room['treasure'].s_to = room['narrow']
 # Make a new player object that is currently in the 'outside' room.
 
 player_name = input("What is your name?\n")
-active_player = Player(player_name, room['outside'])
+active_player = Player(player_name, room['outside'], [])
 
 # print(active_player.name)
 
@@ -80,23 +80,29 @@ def player_location():
 while True:
 
     player_location()
-    user_input = input("Where would you like to go? n, e, s, w, or q to quit.")
+    add_item = input("Enter 'take' to pickup found item(s)\n")
+
+    if add_item == 'take':
+        active_player = Player(player_name, current_location, current_location.items)
+        print(f"{active_player.name}, you've grabbed {active_player.inventory}")
+        
+    user_input = input("Where would you like to go? n, e, s, w, or q to quit.\n")
 
     # North
     if user_input == 'n':
         print(f'Onward north!\n')
 
         if current_location == room['outside']:
-            active_player = Player(player_name, room['outside'].n_to)
+            active_player = Player(player_name, room['outside'].n_to, [])
 
         elif current_location == room['foyer']:
-            active_player = Player(player_name, room['foyer'].n_to)
+            active_player = Player(player_name, room['foyer'].n_to, [])
 
         elif current_location == room['overlook']:
             print(f'{active_player.name}, there is no path this way!\n')
 
         elif current_location == room['narrow']:
-            active_player = Player(player_name, room['narrow'].n_to)
+            active_player = Player(player_name, room['narrow'].n_to, [])
 
         elif current_location == room['treasure']:
             print(f'{active_player.name}, there is no path this way!\n')
@@ -109,16 +115,16 @@ while True:
             print(f'{active_player.name}, there is no path this way!\n')
 
         elif current_location == room['foyer']:
-            active_player = Player(player_name, room['foyer'].s_to)
+            active_player = Player(player_name, room['foyer'].s_to, [])
 
         elif current_location == room['overlook']:
-            active_player = Player(player_name, room['overlook'].s_to)
+            active_player = Player(player_name, room['overlook'].s_to, [])
 
         elif current_location == room['narrow']:
             print(f'{active_player.name}, there is no path this way!\n')
 
         elif current_location == room['treasure']:
-            active_player = Player(player_name, room['treasure'].s_to)
+            active_player = Player(player_name, room['treasure'].s_to, [])
 
     # # East
     elif user_input == 'e':
@@ -128,7 +134,7 @@ while True:
             print(f'{active_player.name}, there is no path this way!\n')
 
         elif current_location == room['foyer']:
-            active_player = Player(player_name, room['foyer'].e_to)
+            active_player = Player(player_name, room['foyer'].e_to, [])
         
         elif current_location == room['overlook']:
             print(f'{active_player.name}, there is no path this way!\n')
@@ -153,7 +159,7 @@ while True:
             print(f'{active_player.name}, there is no path this way!\n')
 
         elif current_location == room['narrow']:
-            active_player = Player(player_name, room['narrow'].w_to)
+            active_player = Player(player_name, room['narrow'].w_to, [])
 
         elif current_location == room['treasure']:
             print(f'{active_player.name}, there is no path this way!\n')
